@@ -1,0 +1,15 @@
+diff --git a/torch_ipex/csrc/cpu/DevOPs.cpp b/torch_ipex/csrc/cpu/DevOPs.cpp
+index 3a8a101..a34b720 100644
+--- a/torch_ipex/csrc/cpu/DevOPs.cpp
++++ b/torch_ipex/csrc/cpu/DevOPs.cpp
+@@ -696,8 +696,8 @@ at::Tensor& dil_mul_common(
+   CHECK_DNNL_OP_PRE_COND(self);
+   CHECK_DNNL_OP_PRE_COND(other);
+ 
+-  // IPEX_CHECK(self.sizes().equals(other.sizes()),
+-  //     "dil mul not support broadcast yet");
++  IPEX_CHECK(self.sizes().equals(other.sizes()),
++      "dil mul not support broadcast yet");
+ 
+   dbl::comm::reorder_to_bf16_for_mix_prec(self, true);
+   dbl::comm::reorder_to_bf16_for_mix_prec(other, true);
